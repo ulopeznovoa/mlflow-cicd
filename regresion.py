@@ -9,9 +9,12 @@ from sklearn.model_selection import train_test_split
 # Configurar MLflow
 tracking_uri = os.environ.get(
     "MLFLOW_TRACKING_URI",
-    "http://localhost:5000"
+    "http://http://34.57.139.52:5000"
 )
-mlflow.set_tracking_uri(tracking_uri)
+#mlflow.set_tracking_uri(tracking_uri)
+mlflow.set_tracking_uri("http://http://34.57.139.52:5000")
+
+
 
 mlflow.set_experiment("iris-ci-cd")
 
