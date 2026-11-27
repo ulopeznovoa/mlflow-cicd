@@ -15,7 +15,7 @@ print(f"MLflow tracking URI: {tracking_uri}")
 
 # Configurar MLflow
 mlflow.set_tracking_uri(tracking_uri)
-mlflow.set_experiment("iris-ci-cd")
+mlflow.set_experiment("test-ci-cd")
 
 # Preparar los datos
 X, y = load_iris(return_X_y=True)
@@ -24,7 +24,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 # Parametros del modelo
-params = {"max_iter": 100, "C": 0.01}
+params = {"max_iter": 100, "C": 0.05}
 
 # Crear explícitamente una ejecución
 mlflow.start_run(run_name=f"regression-C-{params['C']}")
