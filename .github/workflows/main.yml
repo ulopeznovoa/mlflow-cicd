@@ -25,25 +25,3 @@ jobs:
         env:
           MLFLOW_TRACKING_URI: ${{ vars.MLFLOW_URI }}
         run: python regresion.py
-
-  docker:
-    name: Build and publish code image
-    runs-on: ubuntu-latest
-    needs: test
-
-    steps:
-      - name: Descargar repositorio
-        uses: actions/checkout@v4
-
-      - name: Iniciar sesión en Docker Hub
-        uses: docker/login-action@v4
-        with:
-          username: ${{ vars.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Construir y subir imagen
-        uses: docker/build-push-action@v7
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
