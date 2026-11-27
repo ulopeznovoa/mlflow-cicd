@@ -7,14 +7,9 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
 # Configurar MLflow
-#tracking_uri = os.environ.get(
-#    "MLFLOW_TRACKING_URI",
-#    "http://http://34.57.139.52:5000"
-#)
-#mlflow.set_tracking_uri(tracking_uri)
-mlflow.set_tracking_uri("http://35.254.98.170:5000")
-
-
+tracking_uri = os.environ["MLFLOW_TRACKING_URI"]
+print(f"MLflow tracking URI: {tracking_uri}")
+mlflow.set_tracking_uri(tracking_uri)
 
 mlflow.set_experiment("iris-ci-cd")
 
@@ -28,7 +23,6 @@ X_train, X_test, y_train, y_test = train_test_split(
 params = {"max_iter": 100, "C": 0.01}
 
 # Crear explícitamente una ejecución
-#mlflow.start_run()
 mlflow.start_run(run_name=f"regression-C-{params['C']}")
 
 model = LogisticRegression(**params)
@@ -52,6 +46,6 @@ mlflow.sklearn.log_model(
     sk_model=model, name="model", serialization_format="skops"
 )
 
+# Finalizar ejecución
 print("Accuracy:", accuracy)
-
 mlflow.end_run()
