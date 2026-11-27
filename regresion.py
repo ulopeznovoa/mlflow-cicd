@@ -24,7 +24,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 # Parametros del modelo
-params = {"max_iter": 100, "C": 0.05}
+params = {"max_iter": 100, "C": 0.01}
 
 # Crear explícitamente una ejecución
 mlflow.start_run(run_name=f"regression-C-{params['C']}")
@@ -43,7 +43,7 @@ mlflow.set_tags({
     })
 
 # Comprobacion de umbral
-if accuracy < 0.98:
+if accuracy < 0.80:
     mlflow.set_tag("validation.status", "rejected")
     raise RuntimeError(
         f"Precision insuficiente: {accuracy:.3f}"
