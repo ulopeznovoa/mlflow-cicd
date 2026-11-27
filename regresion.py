@@ -6,18 +6,15 @@ from sklearn.datasets import load_iris
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
-# Configurar MLflow
+# Obtener variables de entorno
 tracking_uri = os.environ["MLFLOW_TRACKING_URI"]
-
-
 commit_sha = os.environ.get("GITHUB_SHA", "local")
 repository = os.environ.get("GITHUB_REPOSITORY", "local")
 run_id = os.environ.get("GITHUB_RUN_ID", "local")
-
-
-mlflow.set_tracking_uri(tracking_uri)
 print(f"MLflow tracking URI: {tracking_uri}")
 
+# Configurar MLflow
+mlflow.set_tracking_uri(tracking_uri)
 mlflow.set_experiment("iris-ci-cd")
 
 # Preparar los datos
@@ -39,7 +36,6 @@ accuracy = model.score(X_test, y_test)
 # Registro manual
 mlflow.log_params(params)
 mlflow.log_metric("accuracy", accuracy)
-
 mlflow.set_tags({
         "git.commit": commit_sha,
         "github.repository": repository,
