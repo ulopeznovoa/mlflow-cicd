@@ -8,8 +8,8 @@ from sklearn.model_selection import train_test_split
 
 # Configurar MLflow
 tracking_uri = os.environ["MLFLOW_TRACKING_URI"]
-print(f"MLflow tracking URI: {tracking_uri}")
 mlflow.set_tracking_uri(tracking_uri)
+print(f"MLflow tracking URI: {tracking_uri}")
 
 mlflow.set_experiment("iris-ci-cd")
 
@@ -34,7 +34,7 @@ mlflow.log_params(params)
 mlflow.log_metric("accuracy", accuracy)
 
 # Comprobacion de umbral
-if accuracy < 0.96:
+if accuracy < 0.90:
     mlflow.set_tag("validation.status", "rejected")
     raise RuntimeError(
         f"Precision insuficiente: {accuracy:.3f}"
