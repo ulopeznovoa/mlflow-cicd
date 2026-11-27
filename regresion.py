@@ -8,6 +8,13 @@ from sklearn.model_selection import train_test_split
 
 # Configurar MLflow
 tracking_uri = os.environ["MLFLOW_TRACKING_URI"]
+
+
+commit_sha = os.environ.get("GITHUB_SHA", "local")
+repository = os.environ.get("GITHUB_REPOSITORY", "local")
+run_id = os.environ.get("GITHUB_RUN_ID", "local")
+
+
 mlflow.set_tracking_uri(tracking_uri)
 print(f"MLflow tracking URI: {tracking_uri}")
 
@@ -32,6 +39,12 @@ accuracy = model.score(X_test, y_test)
 # Registro manual
 mlflow.log_params(params)
 mlflow.log_metric("accuracy", accuracy)
+
+mlflow.set_tags({
+        "git.commit": commit_sha,
+        "github.repository": repository,
+        "github.run_id": run_id
+    })
 
 # Comprobacion de umbral
 if accuracy < 0.90:
