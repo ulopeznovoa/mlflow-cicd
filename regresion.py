@@ -43,7 +43,7 @@ mlflow.set_tags({
     })
 
 # Comprobacion de umbral
-if accuracy < 0.90:
+if accuracy < 0.98:
     mlflow.set_tag("validation.status", "rejected")
     raise RuntimeError(
         f"Precision insuficiente: {accuracy:.3f}"
